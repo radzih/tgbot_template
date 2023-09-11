@@ -3,7 +3,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.ext.asyncio.session import async_sessionmaker
 
-from project.core.user.models import User as UserCore
+from project.core.user.model import User as UserCore
 
 from .config import Database
 from .models import User
