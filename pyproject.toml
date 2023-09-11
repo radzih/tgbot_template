@@ -16,14 +16,11 @@ line-length = 79
 [tool.poetry.dependencies]
 python = "^3.10"
 aiogram = "^3b"
-pyjokes = "^0.6.0"
 sqlalchemy = "^2.0.17"
 alembic = "^1.11.1"
 asyncpg = "^0.27.0"
 psycopg2-binary = "^2.9.6"
 greenlet = "^2.0.2"
-aio-pika = "^9.1.5"
-pytz = "^2023.3"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
