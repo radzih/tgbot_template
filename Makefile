@@ -18,7 +18,7 @@ reformat:
 .PHONY: dev-bot
 dev-bot:
 	$(call setup_env, .env.dev)
-	PYTHONPATH=./src $(python) -m project.present.bot
+	$(python) -m project.present.bot
 
 .PHONY: dev-docker
 dev-docker:
@@ -27,7 +27,7 @@ dev-docker:
 .PHONY: dev-migrate
 dev-migrate:
 	$(call setup_env, .env.dev)
-	PYTHONPATH=./src $(py) alembic upgrade head
+	$(py) alembic upgrade head
 
 .PHONY: dev-env
 dev-env:
