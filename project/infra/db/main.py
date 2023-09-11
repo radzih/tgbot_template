@@ -47,18 +47,6 @@ class DBGateway:
             return False
         return True
 
-    async def subscribe_user(self, user_id: int) -> None:
-        user = await self._session.get(User, user_id)
-        user.subscribed = True
-
-        self._session.add(user)
-
-    async def unsubscribe_user(self, user_id: int) -> None:
-        user = await self._session.get(User, user_id)
-        user.subscribed = False
-
-        self._session.add(user)
-
     async def get_user(self, user_id: int) -> UserCore | None:
         user = await self._session.get(User, user_id)
         if not user:
@@ -67,16 +55,10 @@ class DBGateway:
             id=user.id,
             name=user.name,
             created_date=user.created_date,
-            subscribed=user.subscribed,
         )
 
-    async def get_users(
-        self, is_subscribed: bool | None = None
-    ) -> list[UserCore]:
+    async def get_users(self) -> list[UserCore]:
         query = select(User)
-
-        if is_subscribed is not None:
-            query = query.where(User.subscribed == is_subscribed)
 
         users = await self._session.execute(query)
         return [
