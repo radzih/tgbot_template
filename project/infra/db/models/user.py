@@ -7,13 +7,6 @@ from sqlalchemy.sql import func
 from .base import Base
 
 
-@dataclass
-class UserDTO:
-    id: int
-    name: str
-    created_date: datetime
-
-
 class User(Base):
     __tablename__ = "user"
 

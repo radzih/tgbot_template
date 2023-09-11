@@ -3,9 +3,10 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.ext.asyncio.session import async_sessionmaker
 
+from project.core.user.models import User as UserCore
+
 from .config import Database
 from .models import User
-from .models.user import UserDTO
 
 
 def create_connection_url(db: Database, async_: bool = False) -> URL:
@@ -58,11 +59,11 @@ class DBGateway:
 
         self._session.add(user)
 
-    async def get_user(self, user_id: int) -> UserDTO | None:
+    async def get_user(self, user_id: int) -> UserCore | None:
         user = await self._session.get(User, user_id)
         if not user:
             return None
-        return UserDTO(
+        return UserCore(
             id=user.id,
             name=user.name,
             created_date=user.created_date,
@@ -71,7 +72,7 @@ class DBGateway:
 
     async def get_users(
         self, is_subscribed: bool | None = None
-    ) -> list[UserDTO]:
+    ) -> list[UserCore]:
         query = select(User)
 
         if is_subscribed is not None:
@@ -79,7 +80,7 @@ class DBGateway:
 
         users = await self._session.execute(query)
         return [
-            UserDTO(
+            UserCore(
                 id=user.id,
                 name=user.name,
                 created_date=user.created_date,
