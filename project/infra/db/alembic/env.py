@@ -1,10 +1,10 @@
 from logging.config import fileConfig
 
 from alembic import context
-from everyday_joke.infra.db.config import load_config
-from everyday_joke.infra.db.main import create_connection_url
-from everyday_joke.infra.db.models import *
-from everyday_joke.infra.db.models.base import Base
+from project.infra.db.config import load_config
+from project.infra.db.main import create_connection_url
+from project.infra.db.models import *
+from project.infra.db.models.base import Base
 from sqlalchemy import engine_from_config, pool
 
 # this is the Alembic Config object, which provides
