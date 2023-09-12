@@ -1,6 +1,8 @@
 py := poetry run
 python := $(py) python
 
+dirs := project
+
 .ONESHELL:
 
 define setup_env
@@ -12,8 +14,8 @@ endef
 
 .PHONY: reformat
 reformat:
-	poetry run black src
-	poetry run isort src
+	poetry run black $(project)
+	poetry run isort $(project) 
 
 .PHONY: dev-bot
 dev-bot:
