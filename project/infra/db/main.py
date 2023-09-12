@@ -54,7 +54,7 @@ class DBGateway:
         return UserCore(
             id=user.id,
             name=user.name,
-            created_date=user.created_date,
+            created_date=user.created_time,
         )
 
     async def get_users(self) -> list[UserCore]:
@@ -65,8 +65,7 @@ class DBGateway:
             UserCore(
                 id=user.id,
                 name=user.name,
-                created_date=user.created_date,
-                subscribed=user.subscribed,
+                created_date=user.created_time,
             )
             for user in users.scalars()
         ]

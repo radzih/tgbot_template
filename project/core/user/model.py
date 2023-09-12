@@ -6,4 +6,4 @@ from datetime import datetime
 class User:
     id: int
     name: str
-    created_date: datetime
+    created_time: datetime
