@@ -5,11 +5,13 @@ from sqlalchemy.ext.asyncio.session import async_sessionmaker
 from . import repo
 from .config import Database
 
+ASYNC_DRIVER = "postgresql+asyncpg"
+SYNC_DRIVER = "postgresql"
+
 
 def create_connection_url(db: Database, async_: bool = False) -> URL:
     return URL.create(
-        # todo: change drivers to sqlalchemy vars
-        drivername="postgresql+asyncpg" if async_ else "postgresql",
+        drivername=ASYNC_DRIVER if async_ else SYNC_DRIVER,
         username=db.user,
         password=db.password,
         host=db.host,
