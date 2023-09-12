@@ -3,8 +3,10 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.ext.asyncio.session import async_sessionmaker
 
-from project.core.user.model import User as UserCore, User
-from project.core.shared.interace import UserRepo, Commiter
+from project.core.shared.interace import Commiter, UserRepo
+from project.core.user.model import User
+from project.core.user.model import User as UserCore
+
 from .config import Database
 from .models import User
 
@@ -35,7 +37,8 @@ class DBGateway(UserRepo, Commiter):
     async def commit(self) -> None:
         await self._session.commit()
 
-    async def save_user(self, user: User) -> bool:
+    async def save_user(self, user: UserCore) -> bool:
+        user = User(id=user.id, name=user.name, created_time=user.created_time)
         self._session.add(user)
 
         try:
@@ -44,7 +47,7 @@ class DBGateway(UserRepo, Commiter):
             await self._session.rollback()
             return False
         return True
-        
+
     async def get_user(self, user_id: int) -> UserCore | None:
         user = await self._session.get(User, user_id)
         if not user:
